@@ -1,39 +1,33 @@
 @import "tailwindcss";
 
-/* === CONFIGURACIÓN DEL TEMA (Colores y Fuentes) === */
+/* === CONFIGURACIÓN DEL TEMA === */
 @theme {
-  /* Tus colores personalizados */
   --color-navy-900: #0f172a;
   --color-navy-800: #1e293b;
   --color-ui-50: #f8fafc;
   --color-ui-100: #f1f5f9;
   --color-ui-200: #e2e8f0;
 
-  /* Fuentes */
   --font-sans: "Inter", sans-serif;
 
-  /* Animación Fade Up personalizada */
   --animate-fade-up: fadeUp 0.8s ease-out forwards;
-
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
   }
 }
 
-/* === EFECTO SPOTLIGHT (Lando Norris Style) === */
+/* === EFECTOS SPOTLIGHT === */
 @layer utilities {
-  .spotlight-card {
+  /* Renamed to avoid conflicts with existing HTML classes in Highlights section */
+  .spotlight-hover-light {
     position: relative;
     overflow: hidden;
-    background-color: white;
     transition-property: all;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 300ms;
   }
 
-  /* El brillo que sigue al mouse */
-  .spotlight-card::before {
+  .spotlight-hover-light::before {
     content: '';
     position: absolute;
     height: 100%;
@@ -42,39 +36,67 @@
     top: 0;
     background: radial-gradient(
       800px circle at var(--mouse-x) var(--mouse-y), 
-      rgba(15, 23, 42, 0.06), 
+      rgba(255, 255, 255, 0.2), 
       transparent 40%
     );
     opacity: 0;
     transition: opacity 0.5s;
     pointer-events: none;
-    z-index: 1;
+    z-index: 10;
+    mix-blend-mode: overlay;
   }
 
-  /* Mostrar brillo al pasar mouse sobre el grupo */
-  .spotlight-group:hover .spotlight-card::before {
+  .spotlight-hover-light:hover::before {
     opacity: 1;
   }
 
-  /* --- Versión Oscura (Inversores) --- */
-  .dark-spotlight {
+  /* Dark Spotlight (Investors Form & Section) */
+  .spotlight-dark {
     position: relative;
     overflow: hidden;
   }
 
-  .dark-spotlight::after {
+  .spotlight-dark::after {
     content: '';
     position: absolute;
     inset: 0;
     background: radial-gradient(
       600px circle at var(--mouse-x) var(--mouse-y), 
-      rgba(255, 255, 255, 0.08), 
-      transparent 40%
+      rgba(0, 0, 0, 0.6),
+      transparent 50%
     );
+    opacity: 0;
+    transition: opacity 0.3s;
     pointer-events: none;
-    z-index: 20;
+    z-index: 5;
+  }
+
+  .spotlight-dark:hover::after {
+    opacity: 1;
+  }
+
+  /* Hero Section Specifics */
+  .hero-spotlight-mask {
+    mask-image: radial-gradient(
+      400px circle at var(--mouse-x) var(--mouse-y),
+      black 0%,
+      transparent 100%
+    );
+    -webkit-mask-image: radial-gradient(
+      400px circle at var(--mouse-x) var(--mouse-y),
+      black 0%,
+      transparent 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  .hero-section:hover .hero-spotlight-mask {
+    opacity: 1;
   }
   
+  /* Utilidades extras */
   .delay-100 { animation-delay: 100ms; }
   .delay-200 { animation-delay: 200ms; }
 }
