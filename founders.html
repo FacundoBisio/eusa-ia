@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EUSA Venture Studio - For Founders</title>
+    <meta name="description" content="Build, Launch & Raise With a Venture Studio. We partner with founders who need support on fundraising, GTM, and operations.">
+    <meta property="og:title" content="EUSA Venture Studio - For Founders">
+    <meta property="og:description" content="Build, Launch & Raise With a Venture Studio. We partner with founders who need support on fundraising, GTM, and operations.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://eusa-partners.com/founders.html">
+    <meta property="og:image" content="https://eusa-partners.com/images/empresa.webp">
     <link href="dist/output.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="images/favicon.png">
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js" defer></script>
@@ -20,8 +26,8 @@
 
             <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-500">
                 <a href="programs.html" class="hover:text-navy-900 transition-colors">Programs</a>
-                <a href="index.html#founders" class="text-navy-900 transition-colors">Founders</a>
-                <a href="index.html#investors" class="hover:text-navy-900 transition-colors">Investors</a>
+                <a href="founders.html" class="text-navy-900 transition-colors">Founders</a>
+                <a href="investors.html" class="hover:text-navy-900 transition-colors">Investors</a>
                 <a href="index.html#about" class="hover:text-navy-900 transition-colors">About</a>
             </div>
             
@@ -94,55 +100,50 @@
         </div>
     </section>
 
-    <section id="apply" class="w-full py-24 bg-white">
-        <div class="max-w-3xl mx-auto px-6">
+    <section id="apply" class="w-full py-24 bg-white relative overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="images/fondoEmpresarial.jpeg" alt="" class="w-full h-full object-cover opacity-5">
+        </div>
+        <div class="max-w-3xl mx-auto px-6 relative z-10">
             <div class="bg-white p-8 md:p-10 border border-ui-200 rounded-2xl shadow-lg relative overflow-hidden">
-                <h3 class="text-2xl font-medium text-navy-900 mb-8 flex items-center gap-3">
+
+                <h3 class="text-2xl font-medium text-navy-900 mb-8 flex items-center gap-3 relative z-10">
                     <iconify-icon icon="lucide:rocket" class="text-slate-400"></iconify-icon> 
                     Founder Application
                 </h3>
                 
-                <form class="space-y-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-xs font-semibold uppercase text-slate-500 mb-2">Name</label>
-                            <input type="text" placeholder="Your Name" class="w-full px-4 py-3 bg-ui-50 border border-ui-200 rounded-lg text-sm focus:outline-none focus:border-navy-900 focus:ring-1 focus:ring-navy-900 transition-all">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold uppercase text-slate-500 mb-2">Email</label>
-                            <input type="email" placeholder="email@example.com" class="w-full px-4 py-3 bg-ui-50 border border-ui-200 rounded-lg text-sm focus:outline-none focus:border-navy-900 focus:ring-1 focus:ring-navy-900 transition-all">
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label class="block text-xs font-semibold uppercase text-slate-500 mb-2">Startup Name</label>
-                        <input type="text" placeholder="Startup Name" class="w-full px-4 py-3 bg-ui-50 border border-ui-200 rounded-lg text-sm focus:outline-none focus:border-navy-900 focus:ring-1 focus:ring-navy-900 transition-all">
+                <form id="founderForm" class="space-y-4 relative z-10">
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="text" name="name" placeholder="Name" required 
+                            class="w-full px-4 py-3 bg-ui-50 border border-ui-200 rounded-lg text-sm focus:outline-none focus:border-navy-900 focus:ring-1 focus:ring-navy-900 transition-all">
+                        
+                        <input type="email" name="email" placeholder="Email" required 
+                            class="w-full px-4 py-3 bg-ui-50 border border-ui-200 rounded-lg text-sm focus:outline-none focus:border-navy-900 focus:ring-1 focus:ring-navy-900 transition-all">
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-xs font-semibold uppercase text-slate-500 mb-2">Current Stage</label>
-                            <select class="w-full px-4 py-3 bg-ui-50 border border-ui-200 rounded-lg text-sm text-slate-600 focus:outline-none focus:border-navy-900 focus:ring-1 focus:ring-navy-900 transition-all">
-                                <option>Idea</option>
-                                <option>MVP/POC</option>
-                                <option>Early Traction</option>
-                                <option>Scaling</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold uppercase text-slate-500 mb-2">Target Raise (€)</label>
-                            <input type="text" placeholder="e.g. 500,000" class="w-full px-4 py-3 bg-ui-50 border border-ui-200 rounded-lg text-sm focus:outline-none focus:border-navy-900 focus:ring-1 focus:ring-navy-900 transition-all">
-                        </div>
+                    <input type="text" name="startup_name" placeholder="Startup Name" required 
+                        class="w-full px-4 py-3 bg-ui-50 border border-ui-200 rounded-lg text-sm focus:outline-none focus:border-navy-900 focus:ring-1 focus:ring-navy-900 transition-all">
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <select name="stage" class="w-full px-4 py-3 bg-ui-50 border border-ui-200 rounded-lg text-sm text-slate-500 focus:outline-none focus:border-navy-900 focus:ring-1 focus:ring-navy-900 transition-all">
+                            <option value="" disabled selected>Current Stage</option>
+                            <option value="Idea">Idea</option>
+                            <option value="MVP/POC">MVP/POC</option>
+                            <option value="Early Traction">Early Traction</option>
+                        </select>
+                        
+                        <input type="text" name="target_raise" placeholder="Target Raise (€)" 
+                            class="w-full px-4 py-3 bg-ui-50 border border-ui-200 rounded-lg text-sm focus:outline-none focus:border-navy-900 focus:ring-1 focus:ring-navy-900 transition-all">
                     </div>
+
+                    <textarea name="blocker" placeholder="What is your biggest blocker?" rows="3" 
+                            class="w-full px-4 py-3 bg-ui-50 border border-ui-200 rounded-lg text-sm focus:outline-none focus:border-navy-900 focus:ring-1 focus:ring-navy-900 transition-all"></textarea>
                     
-                    <div>
-                        <label class="block text-xs font-semibold uppercase text-slate-500 mb-2">What is your biggest blocker?</label>
-                        <textarea rows="4" class="w-full px-4 py-3 bg-ui-50 border border-ui-200 rounded-lg text-sm focus:outline-none focus:border-navy-900 focus:ring-1 focus:ring-navy-900 transition-all"></textarea>
-                    </div>
-                    
-                    <div class="pt-4">
-                        <button type="button" class="w-full py-4 bg-navy-900 text-white font-medium rounded-lg hover:bg-slate-800 transition-all hover:scale-[1.01] transform cursor-pointer shadow-md">
-                            Submit Application
+                    <div class="pt-2">
+                        <button type="submit" class="w-full py-3 bg-navy-900 text-white font-medium rounded-lg hover:bg-slate-800 transition-all hover:scale-[1.02] transform cursor-pointer flex justify-center items-center gap-2">
+                            <span>Submit Application</span>
+                            <iconify-icon id="founder-loader" icon="lucide:loader-2" class="animate-spin hidden"></iconify-icon>
                         </button>
                     </div>
                 </form>
@@ -152,10 +153,79 @@
 
     <footer class="bg-white border-t border-ui-200 py-12 w-full">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-            <span class="text-xl font-bold tracking-tighter text-navy-900">EUSA</span>
-            <p class="text-sm text-slate-400">© 2024 EUSA Venture Studio. All rights reserved.</p>
+            <a href="index.html" class="text-xl font-bold tracking-tighter text-navy-900">EUSA</a>
+            <p class="text-sm text-slate-400">© 2025 EUSA Venture Studio. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        // Toast
+        const toast = document.getElementById('toast-success');
+
+        function showToast() {
+            // Mostrar
+            toast.classList.remove('opacity-0', 'invisible', 'translate-y-[-20px]');
+            toast.classList.add('opacity-100', 'visible', 'translate-y-0');
+
+            // Ocultar después de 4 segundos
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'visible', 'translate-y-0');
+                toast.classList.add('opacity-0', 'invisible', 'translate-y-[-20px]');
+            }, 4000);
+        }
+
+        // Formulario
+        function handleFormSubmit(formId, endpoint, loaderId) {
+            const form = document.getElementById(formId);
+            const loader = document.getElementById(loaderId);
+
+            if(!form) return;
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault(); // Evita recarga
+
+                // Mostrar loader visual si quieres
+                if(loader) loader.classList.remove('hidden');
+
+                const formData = new FormData(form);
+
+                try {
+                    const response = await fetch(endpoint, {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok && result.status === 'ok') {
+                        showToast(); // Muestra el mensaje de éxito
+                        form.reset(); // Limpia el formulario
+                    } else {
+                        alert("Error: " + (result.message || "Something went wrong"));
+                    }
+                } catch (error) {
+                    console.error(error);
+                    alert("Connection error. Please try again.");
+                } finally {
+                    if(loader) loader.classList.add('hidden');
+                }
+            });
+        }
+
+        // Inicializar los listeners
+        handleFormSubmit('founderForm', 'api/send-founder.php', 'founder-loader');
+    </script>
+
+    <!-- Toast Success -->
+    <div id="toast-success" class="fixed top-5 right-5 z-60 bg-emerald-500 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-4 transform transition-all duration-300 translate-y-[-20px] opacity-0 invisible">
+        <div class="bg-white/20 rounded-full p-1">
+            <iconify-icon icon="lucide:check" width="20"></iconify-icon>
+        </div>
+        <div>
+            <h4 class="font-bold text-sm">Sent Successfully!</h4>
+            <p class="text-xs text-white/90">We'll be in touch soon.</p>
+        </div>
+    </div>
 
 </body>
 </html>
