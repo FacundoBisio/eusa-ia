@@ -1,47 +1,72 @@
 <?php
-header('Content-Type: application/json');
+// api/send-investor.php
+// Iniciar buffer de salida para evitar que warnings/echo ensucien el JSON
+ob_start();
 
+// --- CONFIGURACIÓN DE LIMPIEZA ---
+error_reporting(0);
+ini_set('display_errors', 0);
+
+// Headers cruciales para evitar errores de CORS y procesar bien la respuesta
+header('Access-Control-Allow-Origin: *');
+header('Content-Type: application/json; charset=utf-8');
+
+// 1. Verificación de método
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     http_response_code(405);
     echo json_encode(["status" => "error", "message" => "Method not allowed"]);
     exit;
 }
 
-function clean($data) {
-    return htmlspecialchars(stripslashes(trim($data)));
+// Función helper
+function field($key) {
+    return isset($_POST[$key]) ? trim($_POST[$key]) : "";
 }
 
-$name = clean($_POST['name'] ?? '');
-$email = filter_var($_POST['email'] ?? '', FILTER_SANITIZE_EMAIL);
-$firm = clean($_POST['firm_name'] ?? '');
-$thesis = clean($_POST['thesis'] ?? '');
-$geo = clean($_POST['geography'] ?? '');
-$ticket = clean($_POST['ticket_size'] ?? '');
+// 2. Capturamos los campos
+$name = strip_tags(field("name"));
+$email = filter_var(field("email"), FILTER_SANITIZE_EMAIL);
+$firm_name = strip_tags(field("firm_name"));
+$thesis = strip_tags(field("thesis"));
+$geography = strip_tags(field("geography"));
+$ticket_size = strip_tags(field("ticket_size"));
 
-if (empty($name) || empty($email)) {
+// 3. Validación básica
+if ($name === "" || $email === "") {
     http_response_code(400);
     echo json_encode(["status" => "error", "message" => "Missing required fields"]);
     exit;
 }
 
-$to = "sebastian@eusa-partners.com"; // CAMBIA ESTO
+// 4. Configuración del email
+$to = "sebastian@eusa-partners.com"; 
 $subject = "New Investor Access Request: $name";
 
-$message = "New Investor Network Request:\n\n";
-$message .= "Name: $name\n";
-$message .= "Email: $email\n";
-$message .= "Firm/Angel: $firm\n";
-$message .= "Thesis: $thesis\n";
-$message .= "Geography: $geo\n";
-$message .= "Ticket Size: $ticket\n";
+// 5. Cuerpo del correo
+$body = "New Investor Network Request from the EUSA website:\n\n"
+      . "Name: $name\n"
+      . "Email: $email\n"
+      . "Firm/Angel Name: $firm_name\n"
+      . "Investment Thesis: $thesis\n"
+      . "Geography: $geography\n"
+      . "Ticket Size: $ticket_size\n";
 
-$headers = "From: EUSA Website <noreply@eusa-partners.com>\r\n";
-$headers .= "Reply-To: $email\r\n";
+$headers  = "From: EUSA Website <no-reply@eusa-partners.com>\r\n";
+$headers .= "Reply-To: $name <$email>\r\n";
+$headers .= "X-Mailer: PHP/" . phpversion();
 
-if (mail($to, $subject, $message, $headers)) {
+// 6. Enviar
+$sent = mail($to, $subject, $body, $headers);
+
+// Limpiar buffer para asegurar que solo salga el JSON
+ob_end_clean();
+
+if ($sent) {
     echo json_encode(["status" => "ok"]);
 } else {
+    // Si falla el mail, enviamos 500 pero con JSON válido
     http_response_code(500);
-    echo json_encode(["status" => "error", "message" => "Server mail error"]);
+    echo json_encode(["status" => "error", "message" => "Mail not sent"]);
 }
+exit;
 ?>
